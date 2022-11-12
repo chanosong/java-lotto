@@ -56,4 +56,9 @@ public class Lotto {
 
         return normalCnt;
     }
+
+    // <Func> Get boolean value if player get bonus number right
+    public boolean isBonusGetRight(List<Integer> lotto, int bonus) {
+        return lotto.contains(bonus);
+    }
 }
