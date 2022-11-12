@@ -1,5 +1,8 @@
 package lotto;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
@@ -23,8 +26,20 @@ public class Lotto {
 
         return lottoAmount;
     }
+
     // <Func> Return boolean value of Input money is multiple of thousands
     public boolean validateMultiThousands(String money) {
         return (Integer.parseInt(money) % 1000 == 0);
+    }
+
+    // <Func> Issue lotto and return it
+    public List<List<Integer>> issueLotto(int cnt) {
+        List<List<Integer>> lottoList = new ArrayList<>();
+
+        for (int i = 0; i < cnt; i++) {
+            lottoList.add(Randoms.pickUniqueNumbersInRange(1, 45, 6));
+        }
+
+        return lottoList;
     }
 }
