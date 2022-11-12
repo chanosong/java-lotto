@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoTest {
@@ -24,4 +25,11 @@ class LottoTest {
     }
 
     // 아래에 추가 테스트 작성 가능
+    @DisplayName("로또 금액을 입력하면 개수가 리턴된다.")
+    @Test
+    void getLottoAmountByCost() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 5));
+
+        assertThat(lotto.getLottoAmount("15000")).isEqualTo(15);
+    }
 }

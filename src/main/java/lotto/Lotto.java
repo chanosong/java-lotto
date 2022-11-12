@@ -17,4 +17,9 @@ public class Lotto {
     }
 
     // TODO: 추가 기능 구현
+    public int getLottoAmount(String money) {
+        int lottoAmount = (int) (Integer.parseInt(money) / 1000);
+
+        return lottoAmount;
+    }
 }
