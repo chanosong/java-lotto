@@ -36,10 +36,23 @@ class LottoTest {
     @DisplayName("로또 금액이 천원 단위인지 확인한다.")
     @Test
     void isInputMultiThousands() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 5));
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
         assertThat(lotto.validateMultiThousands("1111")).isEqualTo(false);
         assertThat(lotto.validateMultiThousands("12")).isEqualTo(false);
         assertThat(lotto.validateMultiThousands("9000")).isEqualTo(true);
+    }
+
+    @DisplayName("로또 일반 번호 맞춘 개수를 확인한다.")
+    @Test
+    void getCorrectNormalNum() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(lotto.getNormalSameNum(List.of(6, 5, 4, 3, 2, 1)))
+                .isEqualTo(6);
+        assertThat(lotto.getNormalSameNum(List.of(9, 10, 11, 12, 13, 14)))
+                .isEqualTo(0);
+        assertThat(lotto.getNormalSameNum(List.of(26, 13, 14, 33, 2, 1)))
+                .isEqualTo(2);
     }
 }
