@@ -23,4 +23,8 @@ public class Lotto {
 
         return lottoAmount;
     }
+    // <Func> Return boolean value of Input money is multiple of thousands
+    public boolean validateMultiThousands(String money) {
+        return (Integer.parseInt(money) % 1000 == 0);
+    }
 }
