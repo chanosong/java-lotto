@@ -32,4 +32,14 @@ class LottoTest {
 
         assertThat(lotto.getLottoAmount("15000")).isEqualTo(15);
     }
+
+    @DisplayName("로또 금액이 천원 단위인지 확인한다.")
+    @Test
+    void isInputMultiThousands() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 5));
+
+        assertThat(lotto.validateMultiThousands("1111")).isEqualTo(false);
+        assertThat(lotto.validateMultiThousands("12")).isEqualTo(false);
+        assertThat(lotto.validateMultiThousands("9000")).isEqualTo(true);
+    }
 }
