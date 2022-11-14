@@ -84,4 +84,13 @@ public class Lotto {
 
         return getLottoAmount(money);
     }
+
+    // <Func> Show information of lotto
+    public void showLotto(List<List<Integer>> lottoList) {
+        System.out.println(lottoList.size() + "개를 구매했습니다.");
+        for (int i = 0; i < lottoList.size(); i++) {
+            System.out.println(lottoList.get(i));
+        }
+        System.out.println();
+    }
 }
