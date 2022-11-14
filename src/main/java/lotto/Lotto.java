@@ -5,6 +5,8 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 
+import static camp.nextstep.edu.missionutils.Console.readLine;
+
 public class Lotto {
     private final List<Integer> numbers;
 
@@ -48,7 +50,7 @@ public class Lotto {
 
         for (int i = 0; i < 6; i++) {
             // if number in ans
-            if(numbers.contains(lotto.get(i)) == true) {
+            if (numbers.contains(lotto.get(i)) == true) {
                 normalCnt += 1;
             }
         }
@@ -66,5 +68,20 @@ public class Lotto {
         double yield = (double) reward / input;
 
         return Math.round(yield * 1000) / 1000.0 * 100;
+    }
+
+    // <Func> Get purchase money and validate it, return amount of lotto
+    public int inputMoney() {
+        String money;
+
+        System.out.println("구매금액을 입력해 주세요");
+        money = readLine();
+
+        if (!validateMultiThousands(money)) {
+            System.out.println("[ERROR] 로또 구매 금액은 1000원 단위여야 합니다.");
+            throw new IllegalArgumentException();
+        }
+
+        return getLottoAmount(money);
     }
 }
