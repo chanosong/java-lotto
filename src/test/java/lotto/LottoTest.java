@@ -59,7 +59,6 @@ class LottoTest {
     @DisplayName("로또 일반 번호 맞춘 개수와 보너스 번호 맞춘 여부로 등수 확인")
     @Test
     void getRankTest() {
-
         assertThat(Rank.NONE.getRank(2,true))
                 .isEqualTo(Rank.NONE);
         assertThat(Rank.SECOND.getRank(5,true))
@@ -68,5 +67,15 @@ class LottoTest {
                 .isEqualTo(Rank.THIRD);
         assertThat(Rank.FIRST.getRank(6,false))
                 .isEqualTo(Rank.FIRST);
+    }
+
+    @DisplayName("수익률을 소수점 두째자리 까지 반올림하여 출력하는지 확인")
+    @Test
+    void getYieldTest() {
+        Lotto lotto = new Lotto(List.of(1,2,3,4,5,6));
+
+        assertThat(lotto.getYield(8000, 5000)).isEqualTo(62.5);
+        assertThat(lotto.getYield(20000, 0)).isEqualTo(0);
+        assertThat(lotto.getYield(3000, 200000000)).isEqualTo(6666666.7);
     }
 }

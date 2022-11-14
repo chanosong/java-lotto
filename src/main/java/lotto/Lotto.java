@@ -61,4 +61,11 @@ public class Lotto {
     public boolean isBonusGetRight(List<Integer> lotto, int bonus) {
         return lotto.contains(bonus);
     }
+
+    // <Func> Calculate yield and return int
+    public double getYield(int input, int reward) {
+        double yield = (double) reward / input;
+
+        return Math.round(yield * 1000) / 1000.0 * 100;
+    }
 }
