@@ -93,4 +93,14 @@ public class Lotto {
         }
         System.out.println();
     }
+
+    // <Func> Get Bonus number
+    public int getBonusNum() {
+        String bonus;
+
+        System.out.println("보너스 번호를 입력해 주세요");
+        bonus = readLine();
+
+        return Integer.parseInt(bonus);
+    }
 }
