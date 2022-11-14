@@ -55,4 +55,18 @@ class LottoTest {
         assertThat(lotto.getNormalSameNum(List.of(26, 13, 14, 33, 2, 1)))
                 .isEqualTo(2);
     }
+
+    @DisplayName("로또 일반 번호 맞춘 개수와 보너스 번호 맞춘 여부로 등수 확인")
+    @Test
+    void getRankTest() {
+
+        assertThat(Rank.NONE.getRank(2,true))
+                .isEqualTo(Rank.NONE);
+        assertThat(Rank.SECOND.getRank(5,true))
+                .isEqualTo(Rank.SECOND);
+        assertThat(Rank.THIRD.getRank(5,false))
+                .isEqualTo(Rank.THIRD);
+        assertThat(Rank.FIRST.getRank(6,false))
+                .isEqualTo(Rank.FIRST);
+    }
 }
