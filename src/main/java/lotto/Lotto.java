@@ -42,4 +42,23 @@ public class Lotto {
 
         return lottoList;
     }
+
+    // <Func> Get lotto and return guessed num in normal numbers
+    public int getNormalSameNum(List<Integer> lotto) {
+        int normalCnt = 0;
+
+        for (int i = 0; i < 6; i++) {
+            // if number in ans
+            if(numbers.contains(lotto.get(i)) == true) {
+                normalCnt += 1;
+            }
+        }
+
+        return normalCnt;
+    }
+
+    // <Func> Get boolean value if player get bonus number right
+    public boolean isBonusGetRight(List<Integer> lotto, int bonus) {
+        return lotto.contains(bonus);
+    }
 }
