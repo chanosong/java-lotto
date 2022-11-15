@@ -3,6 +3,7 @@ package lotto;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
@@ -142,5 +143,20 @@ public class Lotto {
         }
 
         return rankList;
+    }
+
+    // <Func> Output Result
+    public void showResult(List<Rank> rankList, int input, int reward) {
+        System.out.println("당첨 통계");
+        System.out.println("---");
+        for (Rank rank : Rank.values()) {
+            System.out.print(rank.getMatch() + "개 일치 ");
+            if (rank.getPrize() == 30000000) {
+                System.out.print(, "보너스 볼 일치 ");
+            }
+            System.out.println("(" + rank.getPrize() + ") - "
+                    + Collections.frequency(rankList, rank) + "개");
+        }
+        System.out.println("총 수익률은 " + getYield(input, reward) + "%입니다.");
     }
 }
