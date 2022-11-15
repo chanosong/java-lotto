@@ -50,7 +50,6 @@ public class Game {
 
         for (int i = 0; i < cnt; i++) {
             lotto = Randoms.pickUniqueNumbersInRange(1, 45, 6);
-            Collections.sort(lotto);
             lottoList.add(lotto);
         }
 
