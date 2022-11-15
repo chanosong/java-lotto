@@ -59,13 +59,15 @@ class LottoTest {
     @DisplayName("로또 일반 번호 맞춘 개수와 보너스 번호 맞춘 여부로 등수 확인")
     @Test
     void getRankTest() {
-        assertThat(Rank.NONE.getRank(2, true))
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(lotto.getRank(2, true))
                 .isEqualTo(Rank.NONE);
-        assertThat(Rank.SECOND.getRank(5, true))
+        assertThat(lotto.getRank(5, true))
                 .isEqualTo(Rank.SECOND);
-        assertThat(Rank.THIRD.getRank(5, false))
+        assertThat(lotto.getRank(5, false))
                 .isEqualTo(Rank.THIRD);
-        assertThat(Rank.FIRST.getRank(6, false))
+        assertThat(lotto.getRank(6, false))
                 .isEqualTo(Rank.FIRST);
     }
 

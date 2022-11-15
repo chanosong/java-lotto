@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
+import static lotto.Rank.THIRD;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -102,5 +103,44 @@ public class Lotto {
         bonus = readLine();
 
         return Integer.parseInt(bonus);
+    }
+
+    public Rank distinguishSecondAndThird(boolean matchBonus) {
+        if (matchBonus == true) {
+            return Rank.SECOND;
+        }
+        return Rank.THIRD;
+    }
+
+    public Rank getRank(int matchNormal, boolean matchBonus) {
+        // TODO: Find rank by match normal number and match bonus number
+        if (matchNormal == 5) {
+            return distinguishSecondAndThird(matchBonus);
+        }
+
+        for (Rank rank : Rank.values()) {
+            if (rank.getMatch() == matchNormal) {
+                return rank;
+            }
+        }
+
+        return Rank.NONE;
+    }
+
+    // <Func> Get List of lotto and make list of rank for statistics
+    public List<Rank> getRankList(List<List<Integer>> lottoList, int bonus) {
+        List<Rank> rankList = new ArrayList<>();
+        Rank rank;
+        int normalCount;
+        boolean bonusCorrect;
+
+        for (int i = 0; i < lottoList.size(); i++) {
+            normalCount = getNormalSameNum(lottoList.get(i));
+            bonusCorrect = isBonusGetRight(lottoList.get(i), bonus);
+
+            rankList.add(getRank(normalCount, bonusCorrect));
+        }
+
+        return rankList;
     }
 }
