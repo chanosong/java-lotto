@@ -96,19 +96,20 @@ public class Game {
 
     // <Func> Output Result
     public void showResult(List<Rank> rankList, int input) {
+        Rank[] values = Rank.values();
         int reward = 0;
 
-        System.out.println("당첨 통계");
-        System.out.println("---");
-        for (Rank rank : Rank.values()) {
-            System.out.print(rank.getMatch() + "개 일치");
-            if (rank.getPrize() == "30,000,000") {
-                System.out.print(", 보너스 볼 일치 ");
+        System.out.println("당첨 통계\n---");
+        for (int i = values.length - 2; i >= 0; i--) {
+            Rank flag = values[i];
+            System.out.print(flag.getMatch() + "개 일치");
+            if (flag.getPrize() == "30,000,000") {
+                System.out.print(", 보너스 볼 일치");
             }
-            System.out.println("(" + rank.getPrize() + "원) - "
-                    + Collections.frequency(rankList, rank) + "개");
+            System.out.println(" (" + flag.getPrize() + "원) - "
+                    + Collections.frequency(rankList, flag) + "개");
 
-            reward += Collections.frequency(rankList, rank) * Integer.parseInt(rank.getPrize().replaceAll(",",""));
+            reward += Collections.frequency(rankList, flag) * Integer.parseInt(flag.getPrize().replaceAll(",",""));
         }
         System.out.println("총 수익률은 " + getYield(input, reward) + "%입니다.");
     }
