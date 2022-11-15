@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
-import static lotto.Rank.THIRD;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -95,7 +94,20 @@ public class Lotto {
         }
         System.out.println();
     }
+    // <Func> Get Winning number
+    public List<Integer> getWinningNum() {
+        List<Integer> winning = new ArrayList<>();
+        String[] winningString;
 
+        System.out.println("당첨 번호를 입력해주세요.");
+
+        winningString = readLine().split(",");
+        for (int i = 0; i < winningString.length; i++) {
+            winning.add(Integer.parseInt(winningString[i]));
+        }
+
+        return winning;
+    }
     // <Func> Get Bonus number
     public int getBonusNum() {
         String bonus;
@@ -146,17 +158,40 @@ public class Lotto {
     }
 
     // <Func> Output Result
-    public void showResult(List<Rank> rankList, int input, int reward) {
+    public void showResult(List<Rank> rankList, int input) {
+        int reward = 0;
+
         System.out.println("당첨 통계");
         System.out.println("---");
         for (Rank rank : Rank.values()) {
             System.out.print(rank.getMatch() + "개 일치 ");
             if (rank.getPrize() == 30000000) {
-                System.out.print(, "보너스 볼 일치 ");
+                System.out.print(", 보너스 볼 일치 ");
             }
             System.out.println("(" + rank.getPrize() + ") - "
                     + Collections.frequency(rankList, rank) + "개");
+
+            reward += Collections.frequency(rankList, rank) * rank.getPrize();
         }
         System.out.println("총 수익률은 " + getYield(input, reward) + "%입니다.");
+    }
+
+    // <Func> Main run function
+    public void run() {
+
+        List<List<Integer>> lottoList;
+        List<Integer> winningNum;
+        List<Rank> rankList;
+        int lottoCnt, bonus;
+
+        lottoCnt = inputMoney();
+        lottoList = issueLotto(lottoCnt);
+        showLotto(lottoList);
+
+        winningNum = getWinningNum();
+        bonus = getBonusNum();
+
+        rankList = getRankList(lottoList,bonus);
+        showResult(rankList, lottoCnt * 1000);
     }
 }
