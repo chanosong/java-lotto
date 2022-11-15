@@ -13,10 +13,29 @@ public class Game {
     List<Rank> rankList;
     int inputMoney;
 
-
     // <Func> Return boolean value of Input money is multiple of thousands
-    public boolean validateMultiThousands(String money) {
-        return (Integer.parseInt(money) % 1000 == 0);
+    public void validateMultiThousands(String money) {
+        boolean result;
+
+        result = (Integer.parseInt(money) % 1000 == 0);
+        if (result == false) {
+            throw new IllegalArgumentException("[ERROR] 로또 구매 금액은 1000 단위 숫자여야합니다.");
+        }
+    }
+
+    public void validateInputInteger(String money) {
+        boolean result;
+
+        result = (money != null && money.matches("[0-9]+"));
+        if (result == false) {
+            throw new IllegalArgumentException("[ERROR] 로또 구매 금액은 숫자여야합니다.");
+        }
+    }
+
+    public void validateInputMoney(String money) {
+
+        validateInputInteger(money);
+        validateMultiThousands(money);
     }
 
     // <Func> Return amount of lotto based on input money
@@ -32,13 +51,15 @@ public class Game {
 
         System.out.println("구매금액을 입력해 주세요");
         money = readLine();
-        this.inputMoney = Integer.parseInt(money);
 
-        if (!validateMultiThousands(money)) {
-            System.out.println("[ERROR] 로또 구매 금액은 1000원 단위여야 합니다.");
-            throw new IllegalArgumentException();
+        try {
+            validateInputMoney(money);
+            this.inputMoney = Integer.parseInt(money);
+
+            System.out.println();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println();
 
         return getLottoAmount(money);
     }
@@ -108,7 +129,7 @@ public class Game {
             System.out.println(" (" + flag.getPrize() + "원) - "
                     + Collections.frequency(rankList, flag) + "개");
 
-            reward += Collections.frequency(rankList, flag) * Integer.parseInt(flag.getPrize().replaceAll(",",""));
+            reward += Collections.frequency(rankList, flag) * Integer.parseInt(flag.getPrize().replaceAll(",", ""));
         }
         System.out.println("총 수익률은 " + getYield(input, reward) + "%입니다.");
     }
@@ -125,14 +146,18 @@ public class Game {
         Lotto lotto;
         int lottoCnt, bonus;
 
-        lottoCnt = inputMoney();
-        lottoList = issueLotto(lottoCnt);
-        showLotto();
+        try {
+            lottoCnt = inputMoney();
+            lottoList = issueLotto(lottoCnt);
+            showLotto();
 
-        lotto = new Lotto(getWinningNum());
-        bonus = getBonusNum();
+            lotto = new Lotto(getWinningNum());
+            bonus = getBonusNum();
 
-        rankList = lotto.getRankList(lottoList, bonus);
-        showResult(rankList, lottoCnt * 1000);
+            rankList = lotto.getRankList(lottoList, bonus);
+            showResult(rankList, lottoCnt * 1000);
+        } catch (IllegalArgumentException e) {
+            System.out.println("");
+        }
     }
 }
