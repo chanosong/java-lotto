@@ -1,17 +1,17 @@
 package lotto;
 
 public enum Rank {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1400000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000),
-    NONE(0, 0);
+    FIRST(6, "2,000,000,000"),
+    SECOND(5, "30,000,000"),
+    THIRD(5, "1,500,000"),
+    FOURTH(4, "50,000"),
+    FIFTH(3, "5,000"),
+    NONE(0, "0");
 
     private final int match;
-    private final int prize;
+    private final String prize;
 
-    Rank(int match, int prize) {
+    Rank(int match, String prize) {
         this.match = match;
         this.prize = prize;
     }
@@ -20,7 +20,7 @@ public enum Rank {
         return this.match;
     }
 
-    public int getPrize() {
+    public String getPrize() {
         return this.prize;
     }
 }
