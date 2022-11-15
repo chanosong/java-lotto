@@ -28,19 +28,19 @@ class LottoTest {
     @DisplayName("로또 금액을 입력하면 개수가 리턴된다.")
     @Test
     void getLottoAmountByCost() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 5));
+        Game game = new Game();
 
-        assertThat(lotto.getLottoAmount("15000")).isEqualTo(15);
+        assertThat(game.getLottoAmount("15000")).isEqualTo(15);
     }
 
     @DisplayName("로또 금액이 천원 단위인지 확인한다.")
     @Test
     void isInputMultiThousands() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Game game = new Game();
 
-        assertThat(lotto.validateMultiThousands("1111")).isEqualTo(false);
-        assertThat(lotto.validateMultiThousands("12")).isEqualTo(false);
-        assertThat(lotto.validateMultiThousands("9000")).isEqualTo(true);
+        assertThat(game.validateMultiThousands("1111")).isEqualTo(false);
+        assertThat(game.validateMultiThousands("12")).isEqualTo(false);
+        assertThat(game.validateMultiThousands("9000")).isEqualTo(true);
     }
 
     @DisplayName("로또 일반 번호 맞춘 개수를 확인한다.")
@@ -74,10 +74,10 @@ class LottoTest {
     @DisplayName("수익률을 소수점 두째자리 까지 반올림하여 출력하는지 확인")
     @Test
     void getYieldTest() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Game game = new Game();
 
-        assertThat(lotto.getYield(8000, 5000)).isEqualTo(62.5);
-        assertThat(lotto.getYield(20000, 0)).isEqualTo(0);
-        assertThat(lotto.getYield(3000, 200000000)).isEqualTo(6666666.7);
+        assertThat(game.getYield(8000, 5000)).isEqualTo(62.5);
+        assertThat(game.getYield(20000, 0)).isEqualTo(0);
+        assertThat(game.getYield(3000, 200000000)).isEqualTo(6666666.7);
     }
 }
