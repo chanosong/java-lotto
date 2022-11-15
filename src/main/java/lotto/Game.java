@@ -38,6 +38,7 @@ public class Game {
             System.out.println("[ERROR] 로또 구매 금액은 1000원 단위여야 합니다.");
             throw new IllegalArgumentException();
         }
+        System.out.println();
 
         return getLottoAmount(money);
     }
@@ -45,16 +46,19 @@ public class Game {
     // <Func> Issue lotto and return it
     public List<List<Integer>> issueLotto(int cnt) {
         List<List<Integer>> lottoList = new ArrayList<>();
+        List<Integer> lotto;
 
         for (int i = 0; i < cnt; i++) {
-            lottoList.add(Randoms.pickUniqueNumbersInRange(1, 45, 6));
+            lotto = Randoms.pickUniqueNumbersInRange(1, 45, 6);
+            Collections.sort(lotto);
+            lottoList.add(lotto);
         }
 
         return lottoList;
     }
 
     // <Func> Show information of lotto
-    public void showLotto(List<List<Integer>> lottoList) {
+    public void showLotto() {
         System.out.println(lottoList.size() + "개를 구매했습니다.");
         for (int i = 0; i < lottoList.size(); i++) {
             System.out.println(lottoList.get(i));
@@ -74,6 +78,8 @@ public class Game {
             winning.add(Integer.parseInt(winningString[i]));
         }
 
+        System.out.println();
+
         return winning;
     }
 
@@ -83,7 +89,8 @@ public class Game {
 
         System.out.println("보너스 번호를 입력해 주세요");
         bonus = readLine();
-
+        System.out.println();
+        
         return Integer.parseInt(bonus);
     }
 
@@ -94,11 +101,11 @@ public class Game {
         System.out.println("당첨 통계");
         System.out.println("---");
         for (Rank rank : Rank.values()) {
-            System.out.print(rank.getMatch() + "개 일치 ");
+            System.out.print(rank.getMatch() + "개 일치");
             if (rank.getPrize() == 30000000) {
                 System.out.print(", 보너스 볼 일치 ");
             }
-            System.out.println("(" + rank.getPrize() + ") - "
+            System.out.println("(" + rank.getPrize() + "원) - "
                     + Collections.frequency(rankList, rank) + "개");
 
             reward += Collections.frequency(rankList, rank) * rank.getPrize();
@@ -120,7 +127,7 @@ public class Game {
 
         lottoCnt = inputMoney();
         lottoList = issueLotto(lottoCnt);
-        showLotto(lottoList);
+        showLotto();
 
         lotto = new Lotto(getWinningNum());
         bonus = getBonusNum();
