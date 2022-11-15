@@ -23,26 +23,4 @@ public enum Rank {
     public int getPrize() {
         return this.prize;
     }
-
-    public Rank distinguishSecondAndThird(boolean matchBonus) {
-        if (matchBonus == true) {
-            return SECOND;
-        }
-        return THIRD;
-    }
-
-    public Rank getRank(int matchNormal, boolean matchBonus) {
-        // TODO: Find rank by match normal number and match bonus number
-        if (matchNormal == 5) {
-            return distinguishSecondAndThird(matchBonus);
-        }
-
-        for (Rank rank : Rank.values()) {
-            if (rank.getMatch() == matchNormal) {
-                return rank;
-            }
-        }
-
-        return NONE;
-    }
 }
