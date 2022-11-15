@@ -2,9 +2,7 @@ package lotto;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
@@ -15,18 +13,14 @@ public class Game {
 
     // <Func> Return boolean value of Input money is multiple of thousands
     public void validateMultiThousands(String money) {
-        boolean result;
-
-        result = (Integer.parseInt(money) % 1000 == 0);
+        boolean result = (Integer.parseInt(money) % 1000 == 0);
         if (result == false) {
             throw new IllegalArgumentException("[ERROR] 로또 구매 금액은 1000 단위 숫자여야합니다.");
         }
     }
 
     public void validateInputInteger(String money) {
-        boolean result;
-
-        result = (money != null && money.matches("[0-9]+"));
+        boolean result = (money != null && money.matches("[0-9]+"));
         if (result == false) {
             throw new IllegalArgumentException("[ERROR] 로또 구매 금액은 숫자여야합니다.");
         }
@@ -92,12 +86,15 @@ public class Game {
         String[] winningString;
 
         System.out.println("당첨 번호를 입력해주세요.");
-
         winningString = readLine().split(",");
         for (int i = 0; i < winningString.length; i++) {
             winning.add(Integer.parseInt(winningString[i]));
         }
-
+        try {
+            checkLottoDuplicate(winning);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
         System.out.println();
 
         return winning;
@@ -141,6 +138,13 @@ public class Game {
         return Math.round(yield * 1000) / 1000.0 * 100;
     }
 
+    public void checkLottoDuplicate(List<Integer> lotto) {
+        Set<Integer> lottoSet = new HashSet<>(lotto);
+
+        if(lottoSet.size() != lotto.size()) {
+            throw new IllegalArgumentException("[ERROR] 중복된 값이 존재합니다.");
+        }
+    }
     // <Func> Main run function
     public void run() {
         Lotto lotto;
